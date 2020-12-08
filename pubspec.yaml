@@ -2,7 +2,7 @@ name: enviroment_flavor
 description: EnviromentFlavor package.
 version: 0.0.1
 author: Lucas Andrade Pontes <lucas.pontes@esig.group>
-homepage:
+homepage: https://github.com/mobile-esig/enviroment_flavor
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
