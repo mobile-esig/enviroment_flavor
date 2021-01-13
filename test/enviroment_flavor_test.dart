@@ -41,22 +41,21 @@ void main() {
   test("Test EnviromentFlarvor properties", () {
     EnviromentFlavor.create(enviroment: Enviroments.DEV, baseURL: "google.com");
 
-    EnviromentFlavor.instance.addPropertie(key: "active", value: true);
-    expect(EnviromentFlavor.instance.getPropertie(key: "active"), true);
+    EnviromentFlavor.instance.addProperty(key: "active", value: true);
+    expect(EnviromentFlavor.instance.getProperty(key: "active"), true);
 
-    EnviromentFlavor.instance.addPropertie(key: "active", value: false);
-    expect(EnviromentFlavor.instance.getPropertie(key: "active"), false);
+    EnviromentFlavor.instance.addProperty(key: "active", value: false);
+    expect(EnviromentFlavor.instance.getProperty(key: "active"), false);
 
-    expect(EnviromentFlavor.instance.getPropertie(key: ""), "");
-    expect(() => EnviromentFlavor.instance.getPropertie(key: null),
+    expect(EnviromentFlavor.instance.getProperty(key: ""), "");
+    expect(() => EnviromentFlavor.instance.getProperty(key: null),
         throwsA(isAssertionError));
 
-    expect(() => EnviromentFlavor.instance.addPropertie(key: null, value: true),
+    expect(() => EnviromentFlavor.instance.addProperty(key: null, value: true),
         throwsA(isAssertionError));
 
     expect(
-        () =>
-            EnviromentFlavor.instance.addPropertie(key: "active", value: null),
+        () => EnviromentFlavor.instance.addProperty(key: "active", value: null),
         throwsA(isAssertionError));
   });
 

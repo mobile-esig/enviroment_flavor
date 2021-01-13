@@ -5,6 +5,6 @@ void main() {
   print("isProd: ${EnviromentFlavor.instance.isProd}");
   print("isProd: ${EnviromentFlavor.instance.getBaseURL}");
 
-  EnviromentFlavor.instance.addPropertie(key: "name", value: "Lucas Andrade");
-  print("Properties: ${EnviromentFlavor.instance.getPropertie(key: 'name')}");
+  EnviromentFlavor.instance.addProperty(key: "name", value: "Lucas Andrade");
+  print("Properties: ${EnviromentFlavor.instance.getProperty(key: 'name')}");
 }

@@ -21,12 +21,12 @@ class EnviromentFlavor {
   String baseURL;
   final Enviroments enviroment;
 
-  void addPropertie({@required String key, @required dynamic value}) {
+  void addProperty({@required String key, @required dynamic value}) {
     assert(key != null && value != null);
     properties[key] = value;
   }
 
-  getPropertie({@required String key}) {
+  getProperty({@required String key}) {
     assert(key != null);
     return properties[key] ?? '';
   }
