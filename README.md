@@ -9,7 +9,7 @@ In your flutter project, add the dependency to your `pubspec.yaml`
 ```yaml
 dependencies:
   ...
-  enviroment_flavor: ^0.0.1
+  enviroment_flavor: ^0.0.3
 ```
 
 ## Usage
