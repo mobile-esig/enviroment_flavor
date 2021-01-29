@@ -1,4 +1,4 @@
-## [0.0.3] - 2021-01-13
+## [0.0.3] - 2021-01-29
 
 - Rename functions to fix typos
 
