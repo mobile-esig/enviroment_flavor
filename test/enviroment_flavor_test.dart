@@ -38,7 +38,7 @@ void main() {
     expect(EnviromentFlavor.instance.isDev, false);
   });
 
-  test("Test EnviromentFlarvor properties", () {
+  test("Test EnviromentFlavor ADD and GET single property", () {
     EnviromentFlavor.create(enviroment: Enviroments.DEV, baseURL: "google.com");
 
     EnviromentFlavor.instance.addProperty(key: "active", value: true);
@@ -56,6 +56,32 @@ void main() {
 
     expect(
         () => EnviromentFlavor.instance.addProperty(key: "active", value: null),
+        throwsA(isAssertionError));
+  });
+
+  test('Test EnviromentFlavor ADD and GET multiple properties', () {
+    EnviromentFlavor.create(enviroment: Enviroments.DEV, baseURL: 'google.com');
+
+    /// Try to add but input is an empty map
+    EnviromentFlavor.instance.addProperties(properties: {});
+    expect(EnviromentFlavor.instance.properties.entries.length, 0);
+
+    /// Adds and gets multiple properties
+    EnviromentFlavor.instance
+        .addProperties(properties: {'active': true, 'inactive': false});
+    expect(EnviromentFlavor.instance.getProperty(key: 'active'), true);
+    expect(EnviromentFlavor.instance.getProperty(key: 'inactive'), false);
+    expect(
+        EnviromentFlavor.instance.getProperties(keys: ['active', 'inactive']),
+        {'active': true, 'inactive': false});
+
+    /// Try to get but input is an empty array
+    expect(EnviromentFlavor.instance.getProperties(keys: []), {});
+
+    expect(() => EnviromentFlavor.instance.addProperties(properties: null),
+        throwsA(isAssertionError));
+
+    expect(() => EnviromentFlavor.instance.getProperties(keys: null),
         throwsA(isAssertionError));
   });
 

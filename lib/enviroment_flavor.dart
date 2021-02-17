@@ -31,6 +31,22 @@ class EnviromentFlavor {
     return properties[key] ?? '';
   }
 
+  void addProperties({@required Map<String, dynamic> properties}) {
+    assert(this.properties != null && properties != null);
+    this.properties = {
+      ...this.properties,
+      ...properties,
+    };
+  }
+
+  Map<String, dynamic> getProperties({@required List<String> keys}) {
+    assert(keys != null);
+    return {
+      for (var key in keys)
+        if (this.properties.keys.contains(key)) key: this.properties[key]
+    };
+  }
+
   String get getBaseURL => baseURL;
 
   bool get isProd => enviroment == Enviroments.PROD;
