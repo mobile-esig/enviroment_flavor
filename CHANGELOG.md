@@ -1,3 +1,7 @@
+## [1.0.0] - 2021-03-05
+
+- Migrates package to null safety
+
 ## [0.0.4] - 2021-02-11
 
 - Implements addProperties() and getProperties()

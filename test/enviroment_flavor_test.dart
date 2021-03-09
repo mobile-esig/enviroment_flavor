@@ -48,11 +48,6 @@ void main() {
     expect(EnviromentFlavor.instance.getProperty(key: "active"), false);
 
     expect(EnviromentFlavor.instance.getProperty(key: ""), "");
-    expect(() => EnviromentFlavor.instance.getProperty(key: null),
-        throwsA(isAssertionError));
-
-    expect(() => EnviromentFlavor.instance.addProperty(key: null, value: true),
-        throwsA(isAssertionError));
 
     expect(
         () => EnviromentFlavor.instance.addProperty(key: "active", value: null),
@@ -77,12 +72,6 @@ void main() {
 
     /// Try to get but input is an empty array
     expect(EnviromentFlavor.instance.getProperties(keys: []), {});
-
-    expect(() => EnviromentFlavor.instance.addProperties(properties: null),
-        throwsA(isAssertionError));
-
-    expect(() => EnviromentFlavor.instance.getProperties(keys: null),
-        throwsA(isAssertionError));
   });
 
   test("Test EnviromentFlavor instance", () {
@@ -93,6 +82,5 @@ void main() {
   test("Test EnviromentFlavor baseURL", () {
     EnviromentFlavor.create(enviroment: Enviroments.DEV, baseURL: "google.com");
     expect(EnviromentFlavor.instance.getBaseURL, "google.com");
-    expect(EnviromentFlavor.instance.getBaseURL.isNotEmpty, true);
   });
 }

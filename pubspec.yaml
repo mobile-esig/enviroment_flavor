@@ -1,11 +1,11 @@
 name: enviroment_flavor
 description: EnviromentFlavor package.
-version: 0.0.4
+version: 1.0.0
 author: Lucas Andrade Pontes <lucas.pontes@esig.group>
 homepage: https://github.com/mobile-esig/enviroment_flavor
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:

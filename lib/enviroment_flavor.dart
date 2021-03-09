@@ -10,44 +10,39 @@ enum Enviroments {
 }
 
 class EnviromentFlavor {
-  EnviromentFlavor.create({@required this.enviroment, this.baseURL}) {
-    assert(enviroment != null && baseURL != null);
+  EnviromentFlavor.create({required this.enviroment, this.baseURL}) {
     enviromentConfig = this;
   }
 
-  static EnviromentFlavor enviromentConfig;
+  static late EnviromentFlavor enviromentConfig;
 
-  Map<String, dynamic> properties = Map();
-  String baseURL;
   final Enviroments enviroment;
+  String? baseURL;
+  Map<String, dynamic> properties = Map();
 
-  void addProperty({@required String key, @required dynamic value}) {
-    assert(key != null && value != null);
+  void addProperty({required String key, required dynamic value}) {
     properties[key] = value;
   }
 
-  getProperty({@required String key}) {
-    assert(key != null);
-    return properties[key] ?? '';
+  getProperty({required String key}) {
+    return properties[key];
   }
 
-  void addProperties({@required Map<String, dynamic> properties}) {
-    assert(this.properties != null && properties != null);
+  void addProperties({required Map<String, dynamic> properties}) {
     this.properties = {
       ...this.properties,
       ...properties,
     };
   }
 
-  Map<String, dynamic> getProperties({@required List<String> keys}) {
-    assert(keys != null);
+  Map<String, dynamic> getProperties({required List<String> keys}) {
     return {
       for (var key in keys)
         if (this.properties.keys.contains(key)) key: this.properties[key]
     };
   }
 
-  String get getBaseURL => baseURL;
+  String? get getBaseURL => baseURL;
 
   bool get isProd => enviroment == Enviroments.PROD;
   bool get isDev => enviroment == Enviroments.DEV;
