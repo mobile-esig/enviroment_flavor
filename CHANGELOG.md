@@ -1,3 +1,7 @@
+## [1.1.0] - 2021-10-15
+
+- Implements new feature to access app version through EnviromentFalor property with package_info_plus
+
 ## [1.0.0] - 2021-03-05
 
 - Migrates package to null safety

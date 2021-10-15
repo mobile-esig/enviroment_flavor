@@ -1,6 +1,7 @@
 library enviroment_flavor;
 
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 enum Enviroments {
   PROD,
@@ -41,6 +42,9 @@ class EnviromentFlavor {
         if (this.properties.keys.contains(key)) key: this.properties[key]
     };
   }
+
+  Future addPropertyAppVersion() async => await PackageInfo.fromPlatform()
+      .then((value) => addProperty(key: 'appVersion', value: value.version));
 
   String? get getBaseURL => baseURL;
 
