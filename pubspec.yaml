@@ -1,6 +1,6 @@
 name: enviroment_flavor
 description: EnviromentFlavor package.
-version: 1.1.0
+version: 2.0.0
 homepage: https://github.com/mobile-esig/enviroment_flavor
 
 environment:

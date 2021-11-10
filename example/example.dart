@@ -2,16 +2,20 @@ import 'package:enviroment_flavor/enviroment_flavor.dart';
 import 'package:flutter/cupertino.dart';
 
 void main() async {
-  EnviromentFlavor.create(enviroment: Enviroments.DEV, baseURL: "google.com");
-  print("isProd: ${EnviromentFlavor.instance.isProd}");
-  print("BaseURL: ${EnviromentFlavor.instance.getBaseURL}");
+  EnvironmentFlavor.create(Environment.DEV, 'google.com');
+  print('isProd: ${EnvironmentFlavor().isProd}');
+  print('baseURL: ${EnvironmentFlavor().baseURL}');
 
-  EnviromentFlavor.instance.addProperty(key: "name", value: "Lucas Andrade");
-  print("Properties: ${EnviromentFlavor.instance.getProperty(key: 'name')}");
+  EnvironmentFlavor().addProperties({'active': true, 'inactive': false});
+  print(
+    'Properties: ${EnvironmentFlavor().getProperties(
+      keys: ['active', 'inactive'],
+    )}',
+  );
 
   WidgetsFlutterBinding.ensureInitialized();
-  await EnviromentFlavor.instance.addPropertyAppVersion();
-
+  await EnvironmentFlavor().addPropertyAppVersion();
   print(
-      "Version App: v.${EnviromentFlavor.instance.getProperty(key: 'appVersion')}");
+    'App version: ${EnvironmentFlavor().getProperties(keys: ['appVersion'])}',
+  );
 }

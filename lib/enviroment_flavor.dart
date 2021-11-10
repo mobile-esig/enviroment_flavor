@@ -3,33 +3,38 @@ library enviroment_flavor;
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-enum Enviroments {
+enum Environment {
   PROD,
   BETA,
   DEV,
   DEMO,
 }
 
-class EnviromentFlavor {
-  EnviromentFlavor.create({required this.enviroment, this.baseURL}) {
-    enviromentConfig = this;
+class EnvironmentFlavor {
+  static late final EnvironmentFlavor _instance;
+
+  final Environment environment;
+
+  final String baseURL;
+
+  Map<String, dynamic> properties = <String, dynamic>{};
+
+  EnvironmentFlavor.create(this.environment, this.baseURL) {
+    debugPrint('-- EnvironmentFlavor create instance ${_instance.hashCode}');
+    _instance = this;
   }
 
-  static late EnviromentFlavor enviromentConfig;
-
-  final Enviroments enviroment;
-  String? baseURL;
-  Map<String, dynamic> properties = Map();
-
-  void addProperty({required String key, required dynamic value}) {
-    properties[key] = value;
+  factory EnvironmentFlavor() {
+    debugPrint('-- EnvironmentFlavor get instance ${_instance.hashCode}');
+    return _instance;
   }
 
-  getProperty({required String key}) {
-    return properties[key];
-  }
+  bool get isProd => environment == Environment.PROD;
+  bool get isDev => environment == Environment.DEV;
+  bool get isBeta => environment == Environment.BETA;
+  bool get isDemo => environment == Environment.DEMO;
 
-  void addProperties({required Map<String, dynamic> properties}) {
+  void addProperties(Map<String, dynamic> properties) {
     this.properties = {
       ...this.properties,
       ...properties,
@@ -43,18 +48,14 @@ class EnviromentFlavor {
     };
   }
 
-  Future addPropertyAppVersion() async => await PackageInfo.fromPlatform()
-      .then((value) => addProperty(key: 'appVersion', value: value.version));
+  Future addPropertyAppVersion() async => await PackageInfo.fromPlatform().then(
+        (value) => addProperties(
+          {
+            'appVersion': value.version,
+            'buildNumber': value.buildNumber,
+          },
+        ),
+      );
 
   String? get getBaseURL => baseURL;
-
-  bool get isProd => enviroment == Enviroments.PROD;
-  bool get isDev => enviroment == Enviroments.DEV;
-  bool get isBeta => enviroment == Enviroments.BETA;
-  bool get isDemo => enviroment == Enviroments.DEMO;
-  Enviroments getEnviroment() => enviroment;
-  static EnviromentFlavor get instance {
-    debugPrint("-- EnviromentConfig Access");
-    return enviromentConfig;
-  }
 }
