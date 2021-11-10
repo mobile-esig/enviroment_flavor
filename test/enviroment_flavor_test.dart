@@ -45,11 +45,28 @@ void main() {
 
     /// Adds and gets multiple properties
     EnvironmentFlavor().addProperties({'active': true, 'inactive': false});
-    expect(EnvironmentFlavor().getProperties(keys: ['active', 'inactive']),
-        {'active': true, 'inactive': false});
+    expect(
+      EnvironmentFlavor().getProperties(['active', 'inactive']),
+      {'active': true, 'inactive': false},
+    );
 
     /// Try to get but input is an empty array
-    expect(EnvironmentFlavor().getProperties(keys: []), {});
+    expect(EnvironmentFlavor().getProperties([]), {});
+  });
+
+  test('Test EnviromentFlavor ADD and GET single property', () {
+    EnvironmentFlavor.create(Environment.DEV, 'google.com');
+
+    EnvironmentFlavor().addProperties({'active': true});
+    expect(EnvironmentFlavor().getProperty('active'), isTrue);
+
+    EnvironmentFlavor().addProperties({'active': false});
+    expect(EnvironmentFlavor().getProperty('active'), isFalse);
+
+    expect(EnvironmentFlavor().getProperty(''), isNull);
+
+    EnvironmentFlavor().addProperties({'active': null});
+    expect(EnvironmentFlavor().getProperty('active'), isNull);
   });
 
   test('Test Environment instance', () {
@@ -71,7 +88,7 @@ void main() {
     await EnvironmentFlavor().addPropertyAppVersion();
 
     final appVersion = EnvironmentFlavor().getProperties(
-      keys: ['appVersion', 'buildNumber'],
+      ['appVersion', 'buildNumber'],
     );
 
     expect(appVersion.entries.length, equals(2));

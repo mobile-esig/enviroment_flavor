@@ -9,13 +9,13 @@ void main() async {
   EnvironmentFlavor().addProperties({'active': true, 'inactive': false});
   print(
     'Properties: ${EnvironmentFlavor().getProperties(
-      keys: ['active', 'inactive'],
+      ['active', 'inactive'],
     )}',
   );
 
   WidgetsFlutterBinding.ensureInitialized();
   await EnvironmentFlavor().addPropertyAppVersion();
   print(
-    'App version: ${EnvironmentFlavor().getProperties(keys: ['appVersion'])}',
+    'App version: ${EnvironmentFlavor().getProperties(['appVersion'])}',
   );
 }

@@ -19,11 +19,11 @@ class EnvironmentFlavor {
 
   EnvironmentFlavor.create(this.environment, this.baseURL) {
     _instance = this;
-    debugPrint('-- EnvironmentFlavor creating instance ${_instance.hashCode}');
+    debugPrint('-- EnvFlavor creating instance ${_instance.hashCode}');
   }
 
   factory EnvironmentFlavor() {
-    debugPrint('-- EnvironmentFlavor getting instance ${_instance.hashCode}');
+    debugPrint('-- EnvFlavor getting instance ${_instance.hashCode}');
     return _instance;
   }
 
@@ -33,7 +33,7 @@ class EnvironmentFlavor {
   bool get isDemo => environment == Environment.DEMO;
 
   void addProperties(Map<String, dynamic> properties) {
-    _devPrint('-- EnvironmentFlavor adding properties: $properties');
+    devPrint('-- EnvFlavor adding properties: $properties');
 
     this.properties = {
       ...this.properties,
@@ -41,8 +41,8 @@ class EnvironmentFlavor {
     };
   }
 
-  Map<String, dynamic> getProperties({required List<String> keys}) {
-    _devPrint('-- EnvironmentFlavor getting properties: $keys');
+  Map<String, dynamic> getProperties(List<String> keys) {
+    devPrint('-- EnvFlavor getting properties: $keys');
 
     return {
       for (var key in keys)
@@ -50,8 +50,13 @@ class EnvironmentFlavor {
     };
   }
 
+  dynamic getProperty(String key) {
+    devPrint('-- EnvFlavor getting property: $key');
+    return properties.keys.contains(key) ? properties[key] : null;
+  }
+
   Future<void> addPropertyAppVersion() async {
-    _devPrint('-- EnvironmentFlavor adding AppVersion to properties');
+    devPrint('-- EnvFlavor adding AppVersion to properties');
 
     final PackageInfo info = await PackageInfo.fromPlatform();
     addProperties(
@@ -62,7 +67,7 @@ class EnvironmentFlavor {
     );
   }
 
-  void _devPrint(String msg) {
+  void devPrint(String msg) {
     if (!isProd) {
       debugPrint(msg);
     }

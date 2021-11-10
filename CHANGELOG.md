@@ -1,3 +1,8 @@
+## [2.0.1] - 2021-11-10
+
+- Returns with `getProperty` method for practicality
+- Turns `devPrint()` public
+
 ## [2.0.0] - 2021-11-10
 
 - Corrects class name spelling: Enviroment became `Environment`
