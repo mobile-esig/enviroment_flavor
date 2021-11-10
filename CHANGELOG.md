@@ -1,6 +1,18 @@
+## [2.0.0] - 2021-11-10
+
+- Corrects class name spelling: Enviroment became `Environment`
+- Renames enum from Enviroments to `Environment`
+- Removes methods `addProperty` and `getProperty`
+- Removes unecessary getter methods of public attributes
+- Turns `baseURL` non-nullable
+- Renames `EnviromentConfig` to `_instance`
+- Creates factory method to better retrieve `_instance`
+- Updates tests and example
+- Adds better logs to all functions
+
 ## [1.1.0] - 2021-10-15
 
-- Implements new feature to access app version through EnviromentFalor property with package_info_plus
+- Implements new feature to access app version through EnviromentFlavor property with package_info_plus
 
 ## [1.0.0] - 2021-03-05
 

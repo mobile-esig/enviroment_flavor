@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:enviroment_flavor/enviroment_flavor.dart';
@@ -6,33 +7,33 @@ void main() {
   test('Test Environment Beta', () {
     EnvironmentFlavor.create(Environment.BETA, 'google.com');
 
-    expect(EnvironmentFlavor().environment, Environment.BETA);
-    expect(EnvironmentFlavor().isBeta, true);
-    expect(EnvironmentFlavor().isProd, false);
+    expect(EnvironmentFlavor().environment, equals(Environment.BETA));
+    expect(EnvironmentFlavor().isBeta, isTrue);
+    expect(EnvironmentFlavor().isProd, isFalse);
   });
 
   test('Test Environment Prod', () {
     EnvironmentFlavor.create(Environment.PROD, 'google.com');
 
-    expect(EnvironmentFlavor().environment, Environment.PROD);
-    expect(EnvironmentFlavor().isProd, true);
-    expect(EnvironmentFlavor().isBeta, false);
+    expect(EnvironmentFlavor().environment, equals(Environment.PROD));
+    expect(EnvironmentFlavor().isProd, isTrue);
+    expect(EnvironmentFlavor().isBeta, isFalse);
   });
 
   test('Test Environment Dev', () {
     EnvironmentFlavor.create(Environment.DEV, 'google.com');
 
-    expect(EnvironmentFlavor().environment, Environment.DEV);
-    expect(EnvironmentFlavor().isDev, true);
-    expect(EnvironmentFlavor().isProd, false);
+    expect(EnvironmentFlavor().environment, equals(Environment.DEV));
+    expect(EnvironmentFlavor().isDev, isTrue);
+    expect(EnvironmentFlavor().isProd, isFalse);
   });
 
   test('Test Environment Demo', () {
     EnvironmentFlavor.create(Environment.DEMO, 'google.com');
 
-    expect(EnvironmentFlavor().environment, Environment.DEMO);
-    expect(EnvironmentFlavor().isDemo, true);
-    expect(EnvironmentFlavor().isDev, false);
+    expect(EnvironmentFlavor().environment, equals(Environment.DEMO));
+    expect(EnvironmentFlavor().isDemo, isTrue);
+    expect(EnvironmentFlavor().isDev, isFalse);
   });
 
   test('Test Environment ADD and GET multiple properties', () {
@@ -53,11 +54,31 @@ void main() {
 
   test('Test Environment instance', () {
     EnvironmentFlavor.create(Environment.DEV, 'google.com');
-    expect(EnvironmentFlavor(), isInstanceOf<Environment>());
+    expect(EnvironmentFlavor(), isInstanceOf<EnvironmentFlavor>());
+    final hashCode1 = EnvironmentFlavor();
+    final hashCode2 = EnvironmentFlavor();
+    expect(hashCode1, hashCode2);
   });
 
   test('Test Environment baseURL', () {
     EnvironmentFlavor.create(Environment.DEV, 'google.com');
     expect(EnvironmentFlavor().baseURL, 'google.com');
+  });
+
+  test('AppVersion', () async {
+    EnvironmentFlavor.create(Environment.DEV, 'google.com');
+    WidgetsFlutterBinding.ensureInitialized();
+    await EnvironmentFlavor().addPropertyAppVersion();
+
+    final appVersion = EnvironmentFlavor().getProperties(
+      keys: ['appVersion', 'buildNumber'],
+    );
+
+    expect(appVersion.entries.length, equals(2));
+    expect(appVersion['appVersion'], isA<String>());
+    expect(appVersion['appVersion'], isNotEmpty);
+
+    expect(appVersion['buildNumber'], isA<String>());
+    expect(appVersion['buildNumber'], isNotEmpty);
   });
 }

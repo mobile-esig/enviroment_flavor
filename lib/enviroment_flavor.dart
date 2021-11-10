@@ -13,19 +13,17 @@ enum Environment {
 class EnvironmentFlavor {
   static late final EnvironmentFlavor _instance;
 
-  final Environment environment;
-
   final String baseURL;
-
+  final Environment environment;
   Map<String, dynamic> properties = <String, dynamic>{};
 
   EnvironmentFlavor.create(this.environment, this.baseURL) {
-    debugPrint('-- EnvironmentFlavor create instance ${_instance.hashCode}');
     _instance = this;
+    debugPrint('-- EnvironmentFlavor creating instance ${_instance.hashCode}');
   }
 
   factory EnvironmentFlavor() {
-    debugPrint('-- EnvironmentFlavor get instance ${_instance.hashCode}');
+    debugPrint('-- EnvironmentFlavor getting instance ${_instance.hashCode}');
     return _instance;
   }
 
@@ -35,6 +33,8 @@ class EnvironmentFlavor {
   bool get isDemo => environment == Environment.DEMO;
 
   void addProperties(Map<String, dynamic> properties) {
+    _devPrint('-- EnvironmentFlavor adding properties: $properties');
+
     this.properties = {
       ...this.properties,
       ...properties,
@@ -42,20 +42,29 @@ class EnvironmentFlavor {
   }
 
   Map<String, dynamic> getProperties({required List<String> keys}) {
+    _devPrint('-- EnvironmentFlavor getting properties: $keys');
+
     return {
       for (var key in keys)
         if (this.properties.keys.contains(key)) key: this.properties[key]
     };
   }
 
-  Future addPropertyAppVersion() async => await PackageInfo.fromPlatform().then(
-        (value) => addProperties(
-          {
-            'appVersion': value.version,
-            'buildNumber': value.buildNumber,
-          },
-        ),
-      );
+  Future<void> addPropertyAppVersion() async {
+    _devPrint('-- EnvironmentFlavor adding AppVersion to properties');
 
-  String? get getBaseURL => baseURL;
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    addProperties(
+      {
+        'appVersion': info.version,
+        'buildNumber': info.buildNumber,
+      },
+    );
+  }
+
+  void _devPrint(String msg) {
+    if (!isProd) {
+      debugPrint(msg);
+    }
+  }
 }
