@@ -1,3 +1,8 @@
+## [2.0.2] - Developer log
+
+- Troca debugPrint pela solução nativa do Dart: developer.log
+- Atualiza package_info_plus p/ 1.4.0
+
 ## [2.0.1] - 2021-11-10
 
 - Returns with `getProperty` method for practicality

@@ -16,6 +16,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EnvironmentFlavor().addPropertyAppVersion();
   print(
-    'App version: ${EnvironmentFlavor().getProperties(['appVersion'])}',
+    'App version: ${EnvironmentFlavor().getProperties([
+          'appVersion',
+          'buildNumber'
+        ])}',
   );
 }

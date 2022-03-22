@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:enviroment_flavor/enviroment_flavor.dart';
 
 void main() {
-  test('Test Environment Beta', () {
+  test('Environment Beta', () {
     EnvironmentFlavor.create(Environment.BETA, 'google.com');
 
     expect(EnvironmentFlavor().environment, equals(Environment.BETA));
@@ -12,7 +12,7 @@ void main() {
     expect(EnvironmentFlavor().isProd, isFalse);
   });
 
-  test('Test Environment Prod', () {
+  test('Environment Prod', () {
     EnvironmentFlavor.create(Environment.PROD, 'google.com');
 
     expect(EnvironmentFlavor().environment, equals(Environment.PROD));
@@ -20,7 +20,7 @@ void main() {
     expect(EnvironmentFlavor().isBeta, isFalse);
   });
 
-  test('Test Environment Dev', () {
+  test('Environment Dev', () {
     EnvironmentFlavor.create(Environment.DEV, 'google.com');
 
     expect(EnvironmentFlavor().environment, equals(Environment.DEV));
@@ -28,7 +28,7 @@ void main() {
     expect(EnvironmentFlavor().isProd, isFalse);
   });
 
-  test('Test Environment Demo', () {
+  test('Environment Demo', () {
     EnvironmentFlavor.create(Environment.DEMO, 'google.com');
 
     expect(EnvironmentFlavor().environment, equals(Environment.DEMO));
@@ -36,7 +36,7 @@ void main() {
     expect(EnvironmentFlavor().isDev, isFalse);
   });
 
-  test('Test Environment ADD and GET multiple properties', () {
+  test('Environment ADD and GET multiple properties', () {
     EnvironmentFlavor.create(Environment.DEV, 'google.com');
 
     /// Try to add but input is an empty map
@@ -54,7 +54,7 @@ void main() {
     expect(EnvironmentFlavor().getProperties([]), {});
   });
 
-  test('Test EnviromentFlavor ADD and GET single property', () {
+  test('EnviromentFlavor ADD and GET single property', () {
     EnvironmentFlavor.create(Environment.DEV, 'google.com');
 
     EnvironmentFlavor().addProperties({'active': true});
@@ -69,7 +69,7 @@ void main() {
     expect(EnvironmentFlavor().getProperty('active'), isNull);
   });
 
-  test('Test Environment instance', () {
+  test('Environment instance', () {
     EnvironmentFlavor.create(Environment.DEV, 'google.com');
     expect(EnvironmentFlavor(), isInstanceOf<EnvironmentFlavor>());
     final hashCode1 = EnvironmentFlavor();
@@ -77,15 +77,17 @@ void main() {
     expect(hashCode1, hashCode2);
   });
 
-  test('Test Environment baseURL', () {
+  test('Environment baseURL', () {
     EnvironmentFlavor.create(Environment.DEV, 'google.com');
     expect(EnvironmentFlavor().baseURL, 'google.com');
   });
 
+  //TESTE FALHA: só funciona em aparelhos Andrdoi e iOS
   test('AppVersion', () async {
     EnvironmentFlavor.create(Environment.DEV, 'google.com');
     WidgetsFlutterBinding.ensureInitialized();
-    await EnvironmentFlavor().addPropertyAppVersion();
+    await EnvironmentFlavor()
+        .addPropertyAppVersion(); // Só funciona nas plataformas Android e iOS
 
     final appVersion = EnvironmentFlavor().getProperties(
       ['appVersion', 'buildNumber'],

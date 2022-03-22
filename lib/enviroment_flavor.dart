@@ -1,7 +1,7 @@
 library enviroment_flavor;
 
-import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'dart:developer' as developer;
 
 enum Environment {
   PROD,
@@ -19,11 +19,11 @@ class EnvironmentFlavor {
 
   EnvironmentFlavor.create(this.environment, this.baseURL) {
     _instance = this;
-    debugPrint('-- EnvFlavor creating instance ${_instance.hashCode}');
+    developer.log('EnvFlavor: creating instance ${_instance.hashCode}');
   }
 
   factory EnvironmentFlavor() {
-    debugPrint('-- EnvFlavor getting instance ${_instance.hashCode}');
+    developer.log('EnvFlavor: getting instance ${_instance.hashCode}');
     return _instance;
   }
 
@@ -33,17 +33,15 @@ class EnvironmentFlavor {
   bool get isDemo => environment == Environment.DEMO;
 
   void addProperties(Map<String, dynamic> properties) {
-    devPrint('-- EnvFlavor adding properties: $properties');
-
     this.properties = {
       ...this.properties,
       ...properties,
     };
+    developer.log('EnvFlavor: added properties: $properties');
   }
 
   Map<String, dynamic> getProperties(List<String> keys) {
-    devPrint('-- EnvFlavor getting properties: $keys');
-
+    developer.log('EnvFlavor: getting properties: $keys');
     return {
       for (var key in keys)
         if (this.properties.keys.contains(key)) key: this.properties[key]
@@ -51,12 +49,12 @@ class EnvironmentFlavor {
   }
 
   dynamic getProperty(String key) {
-    devPrint('-- EnvFlavor getting property: $key');
+    developer.log('EnvFlavor: getting property: $key');
     return properties.keys.contains(key) ? properties[key] : null;
   }
 
   Future<void> addPropertyAppVersion() async {
-    devPrint('-- EnvFlavor adding AppVersion to properties');
+    developer.log('EnvFlavor: adding AppVersion to properties');
 
     final PackageInfo info = await PackageInfo.fromPlatform();
     addProperties(
@@ -65,11 +63,5 @@ class EnvironmentFlavor {
         'buildNumber': info.buildNumber,
       },
     );
-  }
-
-  void devPrint(String msg) {
-    if (!isProd) {
-      debugPrint(msg);
-    }
   }
 }
