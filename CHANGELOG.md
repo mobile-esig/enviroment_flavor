@@ -1,3 +1,6 @@
+## [2.0.3] - Developer log
+- Atualiza package_info_plus p/ 4.1.0
+
 ## [2.0.2] - Developer log
 
 - Troca debugPrint pela solução nativa do Dart: developer.log
